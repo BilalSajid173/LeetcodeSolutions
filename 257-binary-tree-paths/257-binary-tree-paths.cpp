@@ -14,24 +14,23 @@ public:
     string path;
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> ans;
-        helper(root, ans);
+        if(root == NULL){
+            return ans;
+        }
+        helper(root, to_string(root->val), ans);
         return ans;
     }
     
     
-    void helper(TreeNode * root, vector<string> &ans){
-        if(root == NULL){
-            return;
-        }
-        path += to_string(root->val) + "->";
+    void helper(TreeNode * root, string path, vector<string> &ans){
         if(!root->left && !root->right){
-            string str = path.substr(0, path.length() - 2);
-            ans.push_back(str);
+            ans.push_back(path);
         }
-        helper(root->left, ans);
-        helper(root->right, ans);
-        int x = to_string(root->val).length();
-        path = path.substr(0, path.length() - 2 - x);
+        if (root->left != NULL)
+            helper(root->left, path + "->" + to_string(root->left->val), ans);
+        if (root->right != NULL)
+            helper(root->right, path + "->" + to_string(root->right->val), ans);
+        
         return;
     }
 };
