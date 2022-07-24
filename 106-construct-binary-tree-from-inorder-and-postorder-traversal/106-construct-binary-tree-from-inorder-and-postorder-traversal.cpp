@@ -12,8 +12,12 @@
 class Solution {
 public:
     int postpointer;
+    unordered_map<int,int> mp;
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
         postpointer = postorder.size() - 1;
+        for(int i = 0; i<inorder.size(); i++){
+            mp[inorder[i]] = i;
+        }
         return helper(inorder, postorder, 0, (inorder.size() - 1));
         
     }
@@ -21,15 +25,7 @@ public:
         if(s>e){
             return NULL;
         }
-        int idx = -1;
-        int i = s;
-        while(i<=e){
-            if(inorder[i] == postorder[postpointer]){
-                idx = i;
-                break;
-            }
-            i++;
-        }
+        int idx = mp[postorder[postpointer]];
         TreeNode * root = new TreeNode(postorder[postpointer]);
         postpointer--;
         root->right = helper(inorder, postorder, idx + 1, e);
