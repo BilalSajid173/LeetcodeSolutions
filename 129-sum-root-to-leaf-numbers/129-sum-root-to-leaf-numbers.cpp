@@ -11,27 +11,15 @@
  */
 class Solution {
 public:
-    int sum = 0;
     int sumNumbers(TreeNode* root) {
-        vector<int> v;
-        helper(sum, root, v);
-        return sum;
+        return dfs(root, 0);
     }
     
-    void helper(int &sum, TreeNode* root, vector<int> &v){
-        if(root == NULL) return;
-        v.push_back(root->val);
-        if(!root->left && !root->right){
-            long long int num = 0, x = 1;
-            for(int i = v.size() - 1; i>=0;i--){
-                num += v[i]*x;
-                x = x*10;
-            }
-            sum += num;
-        }
-        helper(sum, root->left, v);
-        helper(sum,root->right, v);
-        v.pop_back();
-        return;
-    }
+        int dfs(TreeNode* root, int cur) {
+        if(!root) return 0;
+        cur = cur * 10 + root -> val;                 // append current node's digit
+        if(!root -> left && !root -> right)           
+            return cur;
+        return dfs(root -> left, cur) + dfs(root -> right, cur);   
+    }  
 };
