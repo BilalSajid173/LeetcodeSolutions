@@ -11,13 +11,17 @@
  */
 class Solution {
 public:
-    int sum = 0;
     TreeNode* bstToGst(TreeNode* root) {
-        if(!root) return NULL;
-        TreeNode* left = bstToGst(root->right);
-        sum += root->val;
-        root->val = sum;
-        TreeNode* right = bstToGst(root->left);
+        int sum = 0;
+        sum_node(root, sum);
         return root;
+    }
+    
+    void sum_node(TreeNode* node, int& acc_sum){
+        if (node == NULL)  return;
+        sum_node(node->right,acc_sum);
+        node->val += acc_sum;
+        acc_sum = node->val;
+        sum_node(node->left, acc_sum);
     }
 };
