@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+    int dp[31] = {0};
     int getDecimalValue(ListNode* head) {
         int len = length(head);
         len--;
@@ -39,10 +40,13 @@ public:
             return x;
         }
         if(y==0) return 1;
+        if(dp[y] != 0){
+            return dp[y];
+        }
         int ans = fastpower(x, y/2);
         if(y%2 != 0){
-            return ans *ans * x;
+            return dp[y] = ans *ans * x;
         }
-        return ans*ans;
+        return dp[y] = ans*ans;
     }
 };
