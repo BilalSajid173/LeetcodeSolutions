@@ -1,33 +1,49 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> threeSum(vector<int>& num) {
         
-        sort(nums.begin(), nums.end());
-        set<vector<int>> s;
-        for(int i = 0;i<nums.size();i++){
-            vector<int> v;
-            v.push_back(nums[i]);
-            int j = i+1, k = nums.size() - 1;
-            while(j<k){
-                if(nums[i] + nums[j] + nums[k] < 0){
-                    j++; 
-                } else if(nums[i] + nums[j] + nums[k] > 0){
-                    k--;
-                } else if(nums[i] + nums[j] + nums[k] == 0){
-                    v.push_back(nums[j]);
-                    v.push_back(nums[k]);
-                    s.insert(v);
-                    v.pop_back();
-                    v.pop_back();
-                    j++;
-                    k--;
-                }
+        vector<vector<int> > res;
+
+    std::sort(num.begin(), num.end());
+
+    for (int i = 0; i < num.size(); i++) {
+        
+        int target = -num[i];
+        int front = i + 1;
+        int back = num.size() - 1;
+
+        while (front < back) {
+
+            int sum = num[front] + num[back];
+            
+            // Finding answer which start from number num[i]
+            if (sum < target)
+                front++;
+
+            else if (sum > target)
+                back--;
+
+            else {
+                vector<int> triplet = {num[i], num[front], num[back]};
+                res.push_back(triplet);
+                
+                // Processing duplicates of Number 2
+                // Rolling the front pointer to the next different number forwards
+                while (front < back && num[front] == triplet[1]) front++;
+
+                // Processing duplicates of Number 3
+                // Rolling the back pointer to the next different number backwards
+                while (front < back && num[back] == triplet[2]) back--;
             }
+            
         }
-        vector<vector<int>> ans;
-        for(auto v : s){
-            ans.push_back(v);
-        }
-        return ans;
+
+        // Processing duplicates of Number 1
+        while (i + 1 < num.size() && num[i + 1] == num[i]) 
+            i++;
+
+    }
+    
+    return res;
     }
 };
