@@ -18,7 +18,6 @@ public:
                 ans[i] = s.top();
                 filled[i] = true;
             }
-            s.push(nums[i]);
         }
         return ans;
     }
