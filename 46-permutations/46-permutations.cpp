@@ -8,7 +8,7 @@ public:
     }
     
     void helper(vector<int> &nums, int i){
-        if(i==nums.size()){
+        if(i==nums.size()-1){
             ans.push_back(nums);
             return;
         }
