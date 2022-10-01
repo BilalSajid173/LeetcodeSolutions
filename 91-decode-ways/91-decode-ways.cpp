@@ -10,7 +10,7 @@ public:
         if(mem[i]>-1) return mem[i];
         if(s[i]=='0') return mem[i] = 0;
         int res = num(i+1,s,mem);
-        if(i<s.size()-1 && (s[i]=='1'||s[i]=='2'&&s[i+1]<'7')) res+=num(i+2,s,mem);
+        if(i<s.size()-1 && (s[i]=='1'||s[i]=='2'&& s[i+1]<'7')) res += num(i+2,s,mem);
         return mem[i] = res;
     }
 };
