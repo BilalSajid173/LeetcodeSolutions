@@ -33,7 +33,5 @@ public:
         if(left == true || right == true)
             return true;
         return false;
-        
-        
     }
 };
